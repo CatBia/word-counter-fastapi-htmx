@@ -1,0 +1,12 @@
+FROM python:3.12
+# AS DEV ENV, I HAVE TO ADD THE PROPER USER AND GROUP
+ARG UNAME=developer
+ARG UID=1000
+ARG GID=1000
+RUN groupadd -g $GID -o $UNAME
+RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
+USER $UNAME
+COPY --chown=$UID:$GID .. /home/developer/app
+WORKDIR /home/developer/app/application
+RUN echo "source /home/developer/app/development/venv/bin/activate" >> /home/developer/.bashrc
+#TBD: Add venv creation and activation via bashrc
