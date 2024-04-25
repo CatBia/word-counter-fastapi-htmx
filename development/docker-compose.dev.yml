@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    env_file: dev.env
+    build:
+      context: ..
+      dockerfile: development/Dockerfile.dev
+    volumes:
+     - ../:/home/developer/app
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+    user: 1000:1000
+
+networks:
+  backend:
